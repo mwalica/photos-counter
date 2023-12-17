@@ -49,12 +49,18 @@ class MainViewModel(private val dao: DaysDao) : ViewModel() {
                 viewModelScope.launch {
                     dao.deleteDay(event.day)
                 }
+                _state.update { state ->
+                    state.copy(
+                        isShowAlert = false
+                    )
+                }
             }
 
             is DayEvents.ShowDialog -> {
                 _state.update { state ->
                     state.copy(
-                        isShowAlert = true
+                        isShowAlert = true,
+                        selectedDay = event.day
                     )
                 }
             }

@@ -6,5 +6,6 @@ data class DayState(
     val days: List<Day> = emptyList(),
     val amount: Int = 0,
     val date: Long = 0,
-    val isShowAlert: Boolean = false
+    val isShowAlert: Boolean = false,
+    val selectedDay: Day? = null
 )
