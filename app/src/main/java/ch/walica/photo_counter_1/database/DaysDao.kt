@@ -15,6 +15,6 @@ interface DaysDao {
     @Delete
     suspend fun deleteDay(day: Day)
 
-    @Query("SELECT * FROM days")
+    @Query("SELECT * FROM days ORDER BY date DESC")
     fun getDays(): Flow<List<Day>>
 }
