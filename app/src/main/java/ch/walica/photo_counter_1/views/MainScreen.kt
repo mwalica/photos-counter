@@ -42,6 +42,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
 import ch.walica.photo_counter_1.DayEvents
@@ -136,7 +137,9 @@ fun MainScreen(
                                 )
                         )
                         Spacer(modifier = Modifier.width(8.dp))
-                        Text(text = formattedDate)
+                        Text(
+                            text = formattedDate, style = MaterialTheme.typography.bodyMedium
+                        )
                         Spacer(modifier = Modifier.weight(1f))
                         FilledIconButton(
                             colors = IconButtonDefaults.iconButtonColors(
@@ -165,8 +168,12 @@ fun MainScreen(
                         }
                         Text(
                             text = day.amount.toString(),
-                            style = MaterialTheme.typography.titleLarge,
-                            modifier = Modifier.padding(horizontal = 16.dp)
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                textAlign = TextAlign.Center
+                            ),
+                            modifier = Modifier
+                                .padding(horizontal = 16.dp)
+                                .width(24.dp)
                         )
                         FilledTonalIconButton(
                             colors = IconButtonDefaults.iconButtonColors(
