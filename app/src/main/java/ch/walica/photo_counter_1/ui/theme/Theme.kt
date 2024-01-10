@@ -18,8 +18,8 @@ import androidx.compose.ui.text.TextStyle
 import androidx.core.view.WindowCompat
 
 private val DarkColorScheme = darkColorScheme(
-    primary = BlueGrey20,
-    onPrimary = BlueGrey90,
+    primary = BlueGrey60,
+    onPrimary = BlueGrey20,
     primaryContainer = Blue40,
     onPrimaryContainer = Blue90,
 
@@ -91,7 +91,7 @@ fun Photo_counter_1Theme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = colorScheme.surface.toArgb()
 //            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = darkTheme
         }
     }

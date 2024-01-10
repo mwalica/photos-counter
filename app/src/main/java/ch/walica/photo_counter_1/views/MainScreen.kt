@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -108,7 +109,7 @@ fun MainScreen(
                 })
             }
 
-            items(state.days) { day ->
+            itemsIndexed(state.days) { index, day ->
                 val date =
                     ZonedDateTime.ofInstant(Instant.ofEpochSecond(day.date), ZoneId.systemDefault())
                 val formattedDate =
@@ -141,31 +142,34 @@ fun MainScreen(
                             text = formattedDate, style = MaterialTheme.typography.bodyMedium
                         )
                         Spacer(modifier = Modifier.weight(1f))
-                        FilledIconButton(
-                            colors = IconButtonDefaults.iconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                            ),
-                            modifier = Modifier.size(28.dp),
-                            onClick = {
-                                if (day.amount == 1) {
-                                    onEvent(DayEvents.ShowDialog(day))
-                                } else {
-                                    val amount = day.amount - 1
-                                    onEvent(
-                                        DayEvents.UpdateDay(
-                                            day.copy(
-                                                amount = amount
+                        if (index == 0) {
+                            FilledIconButton(
+                                colors = IconButtonDefaults.iconButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                                ),
+                                modifier = Modifier.size(28.dp),
+                                onClick = {
+                                    if (day.amount == 1) {
+                                        onEvent(DayEvents.ShowDialog(day))
+                                    } else {
+                                        val amount = day.amount - 1
+                                        onEvent(
+                                            DayEvents.UpdateDay(
+                                                day.copy(
+                                                    amount = amount
+                                                )
                                             )
                                         )
-                                    )
-                                }
-                            }) {
-                            Icon(
-                                imageVector = Icons.Rounded.KeyboardArrowLeft,
-                                contentDescription = "remove icon",
-                            )
+                                    }
+                                }) {
+                                Icon(
+                                    imageVector = Icons.Rounded.KeyboardArrowLeft,
+                                    contentDescription = "remove icon",
+                                )
+                            }
                         }
+
                         Text(
                             text = day.amount.toString(),
                             style = MaterialTheme.typography.titleLarge.copy(
@@ -175,28 +179,33 @@ fun MainScreen(
                                 .padding(horizontal = 16.dp)
                                 .width(24.dp)
                         )
-                        FilledTonalIconButton(
-                            colors = IconButtonDefaults.iconButtonColors(
-                                containerColor = MaterialTheme.colorScheme.primaryContainer,
-                                contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                            ),
-                            modifier = Modifier.size(28.dp),
-                            onClick = {
-                                val amount = day.amount + 1
-                                onEvent(
-                                    DayEvents.UpdateDay(
-                                        day.copy(
-                                            amount = amount
+                        if (index == 0) {
+                            FilledTonalIconButton(
+                                colors = IconButtonDefaults.iconButtonColors(
+                                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                                ),
+                                modifier = Modifier.size(28.dp),
+                                onClick = {
+                                    val amount = day.amount + 1
+                                    onEvent(
+                                        DayEvents.UpdateDay(
+                                            day.copy(
+                                                amount = amount
+                                            )
                                         )
                                     )
-                                )
-                            }) {
-                            Icon(
-                                imageVector = Icons.Rounded.KeyboardArrowRight,
-                                contentDescription = "add icon",
+                                }) {
+                                Icon(
+                                    imageVector = Icons.Rounded.KeyboardArrowRight,
+                                    contentDescription = "add icon",
 
-                                )
+                                    )
+                            }
+                        } else {
+                            Spacer(modifier = Modifier.width(28.dp))
                         }
+
                     }
                     Divider()
                 }
