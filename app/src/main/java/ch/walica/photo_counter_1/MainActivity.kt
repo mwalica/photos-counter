@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    MainScreen(state, viewModel::onEvent)
+                    Navigation(state = state, onEvent = viewModel::onEvent)
                 }
             }
         }

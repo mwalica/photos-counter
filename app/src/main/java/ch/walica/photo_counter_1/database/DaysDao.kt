@@ -17,4 +17,5 @@ interface DaysDao {
 
     @Query("SELECT * FROM days ORDER BY date DESC")
     fun getDays(): Flow<List<Day>>
+
 }

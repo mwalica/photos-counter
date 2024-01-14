@@ -18,6 +18,7 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.rounded.BarChart
 import androidx.compose.material.icons.rounded.ExitToApp
 import androidx.compose.material.icons.rounded.KeyboardArrowLeft
 import androidx.compose.material.icons.rounded.KeyboardArrowRight
@@ -46,8 +47,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import ch.walica.photo_counter_1.DayEvents
 import ch.walica.photo_counter_1.DayState
+import ch.walica.photo_counter_1.Screen
 
 import ch.walica.photo_counter_1.components.DeleteAlert
 
@@ -61,6 +64,7 @@ import java.util.Locale
 @Composable
 fun MainScreen(
     state: DayState,
+    navController: NavController,
     onEvent: (DayEvents) -> Unit
 ) {
     val activity = LocalContext.current as Activity
@@ -69,6 +73,11 @@ fun MainScreen(
             TopAppBar(
                 title = { Text(text = "Photos counter") },
                 actions = {
+                    IconButton(onClick = {
+                        navController.navigate(Screen.StatsScreen.route)
+                    }) {
+                        Icon(imageVector = Icons.Rounded.BarChart, contentDescription = "stats")
+                    }
                     IconButton(onClick = { activity.finish() }) {
                         Icon(
                             imageVector = Icons.Rounded.ExitToApp,
