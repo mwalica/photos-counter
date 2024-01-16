@@ -18,7 +18,7 @@ fun Navigation(state: DayState, onEvent: (DayEvents) -> Unit) {
         }
 
         composable(route = Screen.StatsScreen.route) {
-            StatsScreen(navController = navController)
+            StatsScreen(state = state, navController = navController)
         }
     }
 }

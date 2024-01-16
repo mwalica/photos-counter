@@ -22,6 +22,7 @@ class MainViewModel(private val dao: DaysDao) : ViewModel() {
     val state = combine(_state, _days) { state, days ->
         state.copy(
             days = days,
+            years = days.map { day -> day.year }.toSet()
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), DayState())
 
