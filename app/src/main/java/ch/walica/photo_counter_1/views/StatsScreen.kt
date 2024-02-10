@@ -23,7 +23,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.SpanStyle
+import androidx.compose.ui.text.buildAnnotatedString
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.withStyle
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import ch.walica.photo_counter_1.DayState
 import ch.walica.photo_counter_1.Screen
@@ -74,10 +79,20 @@ fun StatsScreen(
             items(state.years.size) { index ->
                 val item = state.years.elementAt(index)
                 Text(
-                    text = "${item}: ${
-                        state.days.filter { day -> day.year == item }.sumOf { it.amount }
-                    }",
-                    style = MaterialTheme.typography.bodyMedium
+                    text = buildAnnotatedString {
+                        append("$item: " )
+                        withStyle(
+                            style = SpanStyle(
+                                color = MaterialTheme.colorScheme.tertiary,
+                                fontWeight = FontWeight.SemiBold,
+                            )
+                        ) {
+                            append(state.days.filter { day -> day.year == item }.sumOf { it.amount }
+                                .toString())
+                        }
+                    },
+                    style = MaterialTheme.typography.titleMedium,
+                    modifier = Modifier.padding(vertical = 2.dp)
                 )
             }
 
